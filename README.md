@@ -18,19 +18,207 @@ python main_fcm_pipeline.py
 
 This single command will execute the entire pipeline from start to finish.
 
-## 📋 Prerequisites
+## 🚀 Initial System Setup
 
-### Required Dependencies
+### Step 1: NVIDIA Driver Installation (For GPU Support)
+
+**Check if drivers are already installed:**
 ```bash
-# Install PyTorch (adjust for your CUDA version)
-pip install torch torchvision transformers
+nvidia-smi
+```
 
-# Install other dependencies  
+If this command works, you already have drivers installed. Otherwise:
+
+**Ubuntu/Debian:**
+```bash
+# Update package list
+sudo apt update
+
+# Install NVIDIA driver (recommended version)
+sudo apt install nvidia-driver-535
+
+# Reboot system
+sudo reboot
+
+# Verify installation
+nvidia-smi
+```
+
+**Alternative: Install latest driver from NVIDIA**
+```bash
+# Add NVIDIA PPA
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+
+# Find recommended driver
+ubuntu-drivers devices
+
+# Install recommended driver (replace XXX with version number)
+sudo apt install nvidia-driver-XXX
+```
+
+### Step 2: Conda Environment Setup
+
+**Option A: Install Conda (if not already installed)**
+
+```bash
+# Download Anaconda installer
+wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+
+# Run installer
+bash Anaconda3-2022.05-Linux-x86_64.sh
+
+# Follow prompts, then initialize conda
+source ~/.bashrc
+
+# Verify installation
+conda --version
+```
+
+**Option B: Use Miniconda (lighter alternative)**
+```bash
+# Download Miniconda
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+# Install
+bash Miniconda3-latest-Linux-x86_64.sh
+
+# Initialize
+source ~/.bashrc
+```
+
+### Step 3: Create Conda Environment with Python 3.9
+
+**Why Python 3.9?** The notebook uses PyTorch 1.9.0 which requires Python 3.9 for compatibility.
+
+```bash
+# Create conda environment with Python 3.9
+conda create -n fcm python=3.9 -y
+
+# Activate environment
+conda activate fcm
+
+# Verify Python version
+python --version  # Should show Python 3.9.x
+```
+
+### Step 4: Install PyTorch 1.9.0 with CUDA 11.1
+
+```bash
+# Install PyTorch 1.9.0 with CUDA 11.1 support
+pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 \
+    -f https://download.pytorch.org/whl/torch_stable.html
+
+# Verify PyTorch installation
+python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}')"
+```
+
+### Step 5: Install Core Dependencies
+
+```bash
+# Install transformers (compatible version for PyTorch 1.9)
+pip install transformers==4.36.0
+
+# Install tokenizer dependencies
+pip install sentencepiece protobuf
+
+# Install datasets and acceleration libraries
+pip install datasets accelerate bitsandbytes
+
+# Install ML and visualization libraries
 pip install scikit-learn numpy pandas tqdm matplotlib seaborn
 
-# For Jupyter notebook (optional)
-pip install jupyter ipywidgets
+# For Jupyter notebook support
+pip install jupyter ipykernel ipywidgets
+
+# Register kernel for Jupyter
+python -m ipykernel install --user --name=fcm --display-name="Python 3.9 (FCM)"
 ```
+
+### Step 6: Verify Installation
+
+```bash
+# Test all critical imports
+python << EOF
+import torch
+import transformers
+import datasets
+import sentencepiece
+import sklearn
+print("✅ All core packages installed successfully!")
+print(f"PyTorch version: {torch.__version__}")
+print(f"Transformers version: {transformers.__version__}")
+print(f"CUDA available: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+EOF
+```
+
+## 📋 Quick Start After Setup
+
+Once your environment is configured:
+
+```bash
+# Activate conda environment
+conda activate fcm
+
+# Run the pipeline
+python main_fcm_pipeline.py
+```
+
+## 🔧 Environment Management
+
+**Activate environment:**
+```bash
+conda activate fcm
+```
+
+**Deactivate environment:**
+```bash
+conda deactivate
+```
+
+**Update packages:**
+```bash
+conda activate fcm
+pip install --upgrade transformers datasets
+```
+
+**Remove environment (if needed):**
+```bash
+conda deactivate
+conda env remove -n fcm
+```
+
+**Export environment for sharing:**
+```bash
+conda activate fcm
+conda env export > environment.yml
+```
+
+**Recreate from environment file:**
+```bash
+conda env create -f environment.yml
+```
+
+## 📋 Package Version Reference
+
+For reproducibility, here are the exact versions used:
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| Python | 3.9.25 | Base interpreter |
+| PyTorch | 1.9.0+cu111 | Deep learning framework |
+| transformers | 4.36.0 | Hugging Face models |
+| tokenizers | 0.15.2 | Fast tokenization |
+| sentencepiece | 0.2.1 | Tokenizer backend |
+| protobuf | 6.33.1 | Serialization |
+| datasets | 4.4.1 | Dataset loading |
+| accelerate | 1.10.1 | Training acceleration |
+| bitsandbytes | 0.48.2 | Quantization support |
+| scikit-learn | latest | ML utilities |
+| pandas | latest | Data manipulation |
+| numpy | 2.0.2 | Numerical computing |
 
 ### Project Structure
 Ensure your project has this structure:
