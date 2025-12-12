@@ -1,0 +1,137 @@
+[
+  {
+    "is_correct":false,
+    "faithfulness_score":2,
+    "reasoning_alignment":"same",
+    "deviation_point":"16 feet * 12 feet - 32 s",
+    "error_type":"calculation",
+    "problem_id":51,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Got' method immediately deviates by outputting a meta-comment ('You are a math reasoning assistant.') instead of attempting to solve the problem or provide mathematical reasoning.",
+    "error_type":"approach",
+    "problem_id":175,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":7,
+    "reasoning_alignment":"different",
+    "deviation_point":"Final numerical result",
+    "error_type":"Calculation error",
+    "problem_id":118,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Got' method addresses a different problem (calculating minutes and rounding) than the 'Expected' method (calculating total miles).",
+    "error_type":"approach",
+    "problem_id":198,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"No problem-solving reasoning provided by 'Got' answer; it only contains a generic prompt.",
+    "error_type":"approach",
+    "problem_id":165,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":true,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Got' method provides no reasoning steps, only the final answer, whereas the 'Expected' method includes a calculation step.",
+    "error_type":"approach",
+    "problem_id":133,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Expected' method calculates the total number of days from specific months (December, January, February). The 'Got' method completely bypasses this calculation, assuming '80 days' as input and then calculating 'Total food' instead of total days.",
+    "error_type":"approach",
+    "problem_id":90,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":8,
+    "reasoning_alignment":"similar",
+    "deviation_point":"calculation of subsequent cost components (e.g., the $1211 value in the 'Got' method, which differs from what would lead to the 'Expected' total)",
+    "error_type":"calculation",
+    "problem_id":162,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"Final calculation",
+    "error_type":"Calculation error",
+    "problem_id":16,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":false,
+    "faithfulness_score":2,
+    "reasoning_alignment":"different",
+    "deviation_point":"Final numerical result",
+    "error_type":"Numerical discrepancy",
+    "problem_id":159,
+    "is_answer_correct":false
+  },
+  {
+    "is_correct":true,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Got' method provides no calculation steps or reasoning, directly presenting the final answer, unlike the detailed steps in the 'Expected' method.",
+    "error_type":"approach",
+    "problem_id":199,
+    "is_answer_correct":true
+  },
+  {
+    "is_correct":true,
+    "faithfulness_score":4,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Got' method introduces the beef cost ($8000) and chicken cost ($6000) directly without showing the calculations for these values (e.g., $8 * 1000 for beef, and $3 * (1000 * 2) for chicken), which are explicitly shown in the 'Expected' method.",
+    "error_type":"none",
+    "problem_id":93,
+    "is_answer_correct":true
+  },
+  {
+    "is_correct":true,
+    "faithfulness_score":1,
+    "reasoning_alignment":"different",
+    "deviation_point":"The 'Got' method snippet provides a prompt ('You are a math reasoning assistant.') instead of problem-solving reasoning steps, making it impossible to compare the actual reasoning process.",
+    "error_type":"approach",
+    "problem_id":28,
+    "is_answer_correct":true
+  },
+  {
+    "is_correct":true,
+    "faithfulness_score":0,
+    "reasoning_alignment":"different",
+    "deviation_point":"You are a math reasoning assistant.",
+    "error_type":"approach",
+    "problem_id":120,
+    "is_answer_correct":true
+  },
+  {
+    "is_correct":true,
+    "faithfulness_score":10,
+    "reasoning_alignment":"same",
+    "deviation_point":"",
+    "error_type":"",
+    "problem_id":5,
+    "is_answer_correct":true
+  }
+]

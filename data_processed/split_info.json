@@ -1,0 +1,16 @@
+{
+  "total_examples": 200,
+  "train_size": 140,
+  "dev_size": 30,
+  "test_size": 30,
+  "class_distribution": {
+    "UI": 140,
+    "UC": 60
+  },
+  "split_ratios": {
+    "train": 0.7,
+    "dev": 0.15,
+    "test": 0.15
+  },
+  "random_seed": 42
+}

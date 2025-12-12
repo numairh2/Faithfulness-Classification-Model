@@ -1,0 +1,168 @@
+{
+  "total_errors": 20,
+  "faithful_errors": 7,
+  "correctness_errors": 17,
+  "low_confidence_errors": [
+    {
+      "index": 0,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27612203",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 1,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27607426",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 2,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27587387",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 5,
+      "predicted": "FC",
+      "actual": "UI",
+      "confidence": "0.27666596",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 6,
+      "predicted": "FC",
+      "actual": "UI",
+      "confidence": "0.27695712",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 7,
+      "predicted": "FC",
+      "actual": "UI",
+      "confidence": "0.27697712",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 10,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27694488",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 11,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27578816",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 14,
+      "predicted": "FC",
+      "actual": "UC",
+      "confidence": "0.27655545",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 15,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27710828",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 16,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27593362",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 18,
+      "predicted": "FC",
+      "actual": "UC",
+      "confidence": "0.27655545",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 19,
+      "predicted": "FC",
+      "actual": "UC",
+      "confidence": "0.27655545",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 20,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27616867",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 24,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27612972",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 25,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27582565",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 26,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.2770224",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 28,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27672407",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 29,
+      "predicted": "FC",
+      "actual": "UI",
+      "confidence": "0.27699107",
+      "question": "...",
+      "reasoning": "..."
+    },
+    {
+      "index": 30,
+      "predicted": "FC",
+      "actual": "FI",
+      "confidence": "0.27570957",
+      "question": "...",
+      "reasoning": "..."
+    }
+  ],
+  "high_confidence_errors": []
+}

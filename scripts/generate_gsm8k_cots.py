@@ -1,38 +1,18 @@
 import os
 import json
-from datasets import load_dataset
+import argparse
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+import sys
+if 'transformers' in sys.modules:
+    del sys.modules['transformers']
+    del sys.modules['transformers.models.auto']
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# -----------------------------
-# CONFIG
-# -----------------------------
-MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.3"   # Stable & easy to run
-OUTPUT_DIR = "./cot_output"
-MAX_PROBLEMS = 200      # adjust as needed
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-HF_TOKEN = os.getenv("HF_TOKEN")                     # export HF_TOKEN=xxxx
-os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# -----------------------------
-# LOAD MODEL
-# -----------------------------
-print("Loading tokenizer/model...")
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, token=HF_TOKEN)
-# Fix tokenizer threading conflicts
-if tokenizer.pad_token is None:
-    tokenizer.pad_token = tokenizer.eos_token
-model = AutoModelForCausalLM.from_pretrained(
-    MODEL_NAME,
-    torch_dtype=torch.float16 if DEVICE == "cuda" else torch.float32,
-    token=HF_TOKEN
-).to(DEVICE)
-
-# -----------------------------
-# HELPER: Generate CoT
-# -----------------------------
-def generate_cot(problem):
-    prompt = f"""You are a math reasoning assistant. 
+def generate_cot(problem, tokenizer, model, device):
+    """Generate chain-of-thought reasoning for a problem"""
+    prompt = f"""You are a math reasoning assistant.
 Solve the following problem using step-by-step chain-of-thought reasoning and give the final answer at the end.
 
 Problem:
@@ -47,7 +27,7 @@ Answer with:
 </final>
 """
 
-    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=1024).to(DEVICE)
+    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=1024).to(device)
 
     with torch.no_grad():
         outputs = model.generate(
@@ -62,45 +42,98 @@ Answer with:
     text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return text
 
-# -----------------------------
-# MAIN SCRIPT
-# -----------------------------
-def main():
-    print("Loading GSM8K...")
-    dataset = load_dataset("gsm8k", "main")["train"]
-    
-    # Clear any existing cache to prevent conflicts
+
+def generate_gsm8k_cots(input_file, output_file, model_name="mistralai/Mistral-7B-Instruct-v0.3"):
+    """Generate CoTs for problems in input JSONL file"""
+
+    # Setup device
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    hf_token = os.getenv("HF_TOKEN")
+
+    print(f"Using device: {device}")
+    print("Loading tokenizer/model...")
+
+    # Load model and tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token, use_fast=False)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype=torch.float16 if device == "cuda" else torch.float32,
+    token=hf_token,
+    ).to(device)
+
+    # Clear cache
     if hasattr(torch.cuda, 'empty_cache'):
         torch.cuda.empty_cache()
 
-    print("Starting generation...")
-    for i, item in enumerate(dataset):
-        if i >= MAX_PROBLEMS:
-            break
+    # Read input problems
+    print(f"Loading problems from {input_file}...")
+    problems = []
+    with open(input_file, 'r') as f:
+        for line in f:
+            problems.append(json.loads(line))
 
-        problem_text = item['question']
+    print(f"Loaded {len(problems)} problems")
 
-        out_path = f"{OUTPUT_DIR}/gsm8k_{i}.json"
-        if os.path.exists(out_path):
-            print(f"Skipping {i} (already generated).")
-            continue
+    # Check for existing output to resume
+    existing_ids = set()
+    if os.path.exists(output_file):
+        print(f"Found existing output file, will resume...")
+        with open(output_file, 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                existing_ids.add(data['problem_id'])
+        print(f"Already processed {len(existing_ids)} problems")
 
-        try:
-            print(f"Generating problem {i}...")
-            cot = generate_cot(problem_text)
+    # Generate CoTs
+    print("Starting CoT generation...")
+    output_mode = 'a' if existing_ids else 'w'
 
-            with open(out_path, "w") as f:
-                json.dump({
-                    "id": i,
-                    "problem": problem_text,
-                    "generated_cot": cot
-                }, f, indent=2)
+    with open(output_file, output_mode) as f:
+        for i, problem_data in enumerate(problems):
+            problem_id = problem_data['problem_id']
 
-        except Exception as e:
-            print(f"Error on problem {i}: {e}")
-            continue
+            # Skip if already processed
+            if problem_id in existing_ids:
+                print(f"Skipping problem {problem_id} (already generated)")
+                continue
 
-    print("DONE.")
+            try:
+                print(f"Generating CoT for problem {problem_id} ({i+1}/{len(problems)})...")
+
+                cot = generate_cot(problem_data['question'], tokenizer, model, device)
+
+                # Write to JSONL (one line per problem)
+                output_record = {
+                    **problem_data,  # Include all original fields
+                    'generated_cot': cot
+                }
+                f.write(json.dumps(output_record) + '\n')
+                f.flush()  # Ensure it's written immediately
+
+            except Exception as e:
+                print(f"Error on problem {problem_id}: {e}")
+                continue
+
+    print(f"✅ CoT generation complete!")
+    print(f"Output saved to: {output_file}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate chain-of-thought reasoning for GSM8K problems")
+    parser.add_argument("--input", type=str, required=True,
+                        help="Input JSONL file with problems")
+    parser.add_argument("--output", type=str, required=True,
+                        help="Output JSONL file for generated CoTs")
+    parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-Instruct-v0.3",
+                        help="Model name to use for generation")
+
+    args = parser.parse_args()
+
+    generate_gsm8k_cots(args.input, args.output, args.model)
+
 
 if __name__ == "__main__":
     main()

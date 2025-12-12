@@ -1,0 +1,19 @@
+{
+  "total_examples": 200,
+  "class_distribution": {
+    "FC": 98,
+    "FI": 78,
+    "UI": 23,
+    "UC": 1
+  },
+  "processing_stats": {
+    "input_examples": 200,
+    "valid_examples": 200,
+    "invalid_examples": 0
+  },
+  "data_quality": {
+    "avg_cot_length": 1172.42,
+    "min_cot_length": 678,
+    "max_cot_length": 1996
+  }
+}

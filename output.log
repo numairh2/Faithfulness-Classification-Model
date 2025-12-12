@@ -1,0 +1,30 @@
+Using device: cuda
+Loading tokenizer/model...
+`torch_dtype` is deprecated! Use `dtype` instead!
+Traceback (most recent call last):
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 741, in getattribute_from_module
+    return getattribute_from_module(transformers_module, attr)
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 745, in getattribute_from_module
+    raise ValueError(f"Could not find {attr} in {transformers_module}!")
+ValueError: Could not find MistralForCausalLM in <module 'transformers' from '/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/__init__.py'>!
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/exouser/Faithfulness-Classification-Model/scripts/generate_gsm8k_cots.py", line 134, in <module>
+    main()
+  File "/home/exouser/Faithfulness-Classification-Model/scripts/generate_gsm8k_cots.py", line 130, in main
+    generate_gsm8k_cots(args.input, args.output, args.model)
+  File "/home/exouser/Faithfulness-Classification-Model/scripts/generate_gsm8k_cots.py", line 56, in generate_gsm8k_cots
+    model = AutoModelForCausalLM.from_pretrained(
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 601, in from_pretrained
+    model_class = _get_model_class(config, cls._model_mapping)
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 394, in _get_model_class
+    supported_models = model_mapping[type(config)]
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 807, in __getitem__
+    return self._load_attr_from_module(model_type, model_name)
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 821, in _load_attr_from_module
+    return getattribute_from_module(self._modules[module_name], attr)
+  File "/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/auto/auto_factory.py", line 743, in getattribute_from_module
+    raise ValueError(f"Could not find {attr} neither in {module} nor in {transformers_module}!")
+ValueError: Could not find MistralForCausalLM neither in <module 'transformers.models.mistral' from '/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/models/mistral/__init__.py'> nor in <module 'transformers' from '/home/exouser/anaconda3/envs/py39/lib/python3.9/site-packages/transformers/__init__.py'>!

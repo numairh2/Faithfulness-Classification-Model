@@ -1,0 +1,7 @@
+{
+  "total_problems": 200,
+  "generation_model": "mistralai/Mistral-7B-Instruct-v0.3",
+  "device_used": "cuda",
+  "average_cot_length": 1172.42,
+  "errors_encountered": 0
+}

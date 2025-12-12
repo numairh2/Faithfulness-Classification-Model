@@ -161,7 +161,7 @@ def analyze_splits(train_data, dev_data, test_data):
         'test': test_stats
     }
 
-def create_dataset_splits(input_file="data_processed/fcm_processed.jsonl", 
+def create_dataset_splits(input_file="data_processed/fcm_data.jsonl",
                          output_dir="data_processed",
                          upsample=True,
                          train_ratio=0.7,
@@ -229,7 +229,7 @@ def create_dataset_splits(input_file="data_processed/fcm_processed.jsonl",
 
 def main():
     parser = argparse.ArgumentParser(description="Create dataset splits for FCM training")
-    parser.add_argument("--input", default="data_processed/fcm_processed.jsonl",
+    parser.add_argument("--input", default="data_processed/fcm_data.jsonl",
                        help="Input processed data file")
     parser.add_argument("--output-dir", default="data_processed",
                        help="Output directory")

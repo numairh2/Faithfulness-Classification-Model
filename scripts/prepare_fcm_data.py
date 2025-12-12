@@ -154,7 +154,7 @@ def prepare_fcm_dataset(input_file="labeled_data.jsonl", output_dir="data_proces
     
     # Save processed data
     os.makedirs(output_dir, exist_ok=True)
-    output_file = f"{output_dir}/fcm_processed.jsonl"
+    output_file = f"{output_dir}/fcm_data.jsonl"
     
     with open(output_file, 'w') as f:
         for item in fcm_data:

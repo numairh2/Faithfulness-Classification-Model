@@ -1,1 +1,14 @@
 .env
+/cot_output
+
+# Model checkpoints (too large for GitHub)
+models/trained_fcm/*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Large data files
+*.bin
+*.h5

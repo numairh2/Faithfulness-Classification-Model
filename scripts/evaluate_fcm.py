@@ -41,7 +41,7 @@ class FCMEvaluator:
         
         # Load model checkpoint
         print(f"Loading model from {model_path}...")
-        checkpoint = torch.load(model_path, map_location=self.device)
+        checkpoint = torch.load(model_path, map_location=self.device, weights_only=False)
         
         # Extract config
         self.config = checkpoint['config']
@@ -206,7 +206,7 @@ class FCMEvaluator:
         # Save detailed error analysis
         if output_dir:
             with open(f"{output_dir}/error_analysis.json", 'w') as f:
-                json.dump(error_analysis, f, indent=2)
+                json.dump(error_analysis, f, indent=2, default=str)
             print(f"📋 Error analysis saved to {output_dir}/error_analysis.json")
         
         return error_analysis

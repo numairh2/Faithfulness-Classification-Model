@@ -40,7 +40,7 @@ def main():
         learning_rate=args.learning_rate
     )
     
-    print(f"=' Configuration:")
+    print("Configuration:")
     print(f"  Model: {config.model_name}")
     print(f"  Epochs: {config.num_epochs}")
     print(f"  Batch size: {config.batch_size}")
@@ -48,7 +48,7 @@ def main():
     print(f"  Output dir: {config.output_dir}")
     
     # Create model and tokenizer
-    print(f"> Loading model and tokenizer...")
+    print("Loading model and tokenizer...")
     model, tokenizer = create_fcm_model(
         model_name=config.model_name,
         num_classes=config.num_classes,
@@ -56,13 +56,13 @@ def main():
     )
     
     # Load datasets
-    print(f"=Ú Loading datasets...")
+    print("Loading datasets...")
     train_dataset = FCMDataset(config.train_data_file, tokenizer, config.max_sequence_length)
     eval_dataset = FCMDataset(config.dev_data_file, tokenizer, config.max_sequence_length)
-    
+
     # Print dataset info
-    print(f"=Ê Train dataset distribution: {train_dataset.get_class_distribution()}")
-    print(f"=Ê Eval dataset distribution: {eval_dataset.get_class_distribution()}")
+    print(f"Train dataset distribution: {train_dataset.get_class_distribution()}")
+    print(f"Eval dataset distribution: {eval_dataset.get_class_distribution()}")
     
     # Create trainer
     trainer = FCMTrainer(model, tokenizer, config)
@@ -70,8 +70,8 @@ def main():
     # Train model
     history = trainer.train(train_dataset, eval_dataset)
     
-    print(f" Training complete!")
-    print(f"=È Final metrics saved to: {config.output_dir}")
+    print("Training complete!")
+    print(f"Final metrics saved to: {config.output_dir}")
 
 
 if __name__ == "__main__":

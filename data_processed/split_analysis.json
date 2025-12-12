@@ -1,0 +1,47 @@
+{
+  "split_config": {
+    "train_ratio": 0.7,
+    "dev_ratio": 0.15,
+    "test_ratio": 0.15,
+    "random_seed": 42,
+    "upsampling_applied": true
+  },
+  "statistics": {
+    "train": {
+      "name": "train",
+      "size": 147,
+      "label_distribution": {
+        "UI": 16,
+        "FC": 68,
+        "FI": 54,
+        "UC": 9
+      },
+      "avg_cot_length": 1172.6190476190477,
+      "std_cot_length": 267.5803479898804
+    },
+    "dev": {
+      "name": "dev",
+      "size": 30,
+      "label_distribution": {
+        "FI": 11,
+        "UC": 2,
+        "FC": 14,
+        "UI": 3
+      },
+      "avg_cot_length": 1180.7,
+      "std_cot_length": 298.97348265913706
+    },
+    "test": {
+      "name": "test",
+      "size": 36,
+      "label_distribution": {
+        "FI": 13,
+        "FC": 16,
+        "UI": 4,
+        "UC": 3
+      },
+      "avg_cot_length": 1224.138888888889,
+      "std_cot_length": 293.81836346606474
+    }
+  }
+}
